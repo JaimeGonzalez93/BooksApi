@@ -1,0 +1,20 @@
+{
+  "name": "booksapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaimeGonzalez93/BooksApi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaimeGonzalez93/BooksApi/issues"
+  },
+  "homepage": "https://github.com/JaimeGonzalez93/BooksApi#readme"
+}
