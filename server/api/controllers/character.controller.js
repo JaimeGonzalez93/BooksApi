@@ -80,4 +80,40 @@ const getCharacterBySex = async (req, res, next) => {
     }
 }
 
-export {getAllCharacters, createCharacter, getCharacterByID, getCharacterByName, getCharacterBySex};
+const editCharacter = async (req,res,next) => {
+    try {
+        const {characterID} = req.params;
+        const characterModify = new Character(req.body);
+
+        characterModify._id = characterID;
+
+        const characterUpdated = await Character.findByIdAndUpdate(
+            characterID,
+            characterModify
+        );
+
+        return res.json({
+            status : 200,
+            message: httpStatusCode [200],
+            data : characterUpdated
+        });
+    } catch (error) {
+        return next(error);
+    }
+}
+
+const deleteCharacter = async  (req, res, next) => {
+    try {
+        const {characterID} = req.params;
+        await Character.findByIdAndDelete(characterID);
+        return res.json({
+            status:200,
+            message: httpStatusCode[200],
+            data: `Character deleted ${characterID}`
+        })
+    } catch (error) {
+        return next(error);
+    }
+}
+
+export {getAllCharacters, createCharacter, getCharacterByID, getCharacterByName, getCharacterBySex, editCharacter, deleteCharacter};

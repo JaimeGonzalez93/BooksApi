@@ -113,6 +113,40 @@ const getBookByGenre = async (req, res, next) => {
       return next(error);
   }
 };
+
+const editBook = async (req, res, next) => {
+  try {
+    const {bookID} = req.params;
+    const bookModify = new Book(req.body);
+
+    bookModify._id = bookID;
+
+    const bookUpdated = await Book.findByIdAndUpdate(
+      bookID,
+      bookModify
+    );
+    return res.json({
+      status:200,
+      message: httpStatusCode[200],
+      data: bookUpdated
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+const deleteBook = async (req,res, next) => {
+  try {
+    const {bookID} = req.params;
+    await Book.findByIdAndDelete(bookID);
+    return res.json ({
+      status : 200,
+      message : httpStatusCode [200],
+      data : `Publisher delete ${bookID}`
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
 export {
   getAllBooks,
   createBook,
@@ -121,4 +155,6 @@ export {
   getBookByWriter,
   getBookByYear,
   getBookByGenre,
+  editBook,
+  deleteBook
 };

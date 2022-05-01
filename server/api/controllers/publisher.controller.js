@@ -77,10 +77,47 @@ const getPublisherByName = async (req, res, next) => {
     return next(error);
   }
 }
+
+const editPublisher = async (req, res, next) => {
+  try {
+    const {publisherID} = req.params;
+  const publisherModify = new Publisher(req.body);
+
+  publisherModify._id = publisherID;
+
+  const publisherUpdated = await Publisher.findByIdAndUpdate(
+    publisherID,
+    publisherModify
+  );
+  return res.json ({
+    status: 200,
+    message: httpStatusCode [200],
+    data: publisherUpdated
+  });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+const deletePublisher = async (req, res, next) => {
+  try {
+    const {publisherID} = req.params;
+    await Publisher.findByIdAndDelete(publisherID);
+    return res.json ({
+      status:200,
+      message: httpStatusCode[200],
+      data: `Publisher deleted ${publisherID}`
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
 export {
   getAllPublishers,
   createPublisher,
   getPublisherByID,
   getPublisherByLocation,
   getPublisherByName,
+  editPublisher,
+  deletePublisher
 };
